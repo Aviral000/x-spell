@@ -1,36 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 export default function App() {
   const [word, setWord] = useState({
     teh: "the",
     wrok: "work",
     fot: "for",
-  })
-
+  });
   const [text, setText] = useState('');
   const [correction, setCorrection] = useState('');
   const [alert, setAlert] = useState(false);
 
-  const spellMistakeArr = text.split(' ');
-  const finder = spellMistakeArr.map((ele) => {
-    const correctedWord = word[ele.toLowerCase()];
-    return correctedWord;
-  });
-  const spellMistake = finder.join(' ');
+  useEffect(() => {
+    const spellMistakeArr = text.split(' ');
+    const correctedWord = spellMistakeArr.find((ele) => {
+      const corrected = word[ele.toLowerCase()];
+      return corrected && corrected !== ele;
+    });
 
-  const toggle = () => {
-    if (spellMistake) {
-      setCorrection(spellMistake);
+    if (correctedWord) {
+      const corrected = word[correctedWord.toLowerCase()];
+      setCorrection(corrected);
       setAlert(true);
     } else {
       setAlert(false);
       setCorrection("");
     }
-  }
-
-  useEffect(() => {
-    toggle();
-  }, [spellMistake])
+  }, [text, word]);
 
   return (
     <div>
@@ -44,11 +39,9 @@ export default function App() {
         rows={5}
         cols={40}
       />
-      {
-        alert && (
-          <p>Did you mean: {correction}?</p>
-        )
-      }
+      {alert && (
+        <p>Did you mean: {correction}?</p>
+      )}
     </div>
-  )
+  );
 }
