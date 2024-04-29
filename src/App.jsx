@@ -5,6 +5,7 @@ export default function App() {
     teh: "the",
     wrok: "work",
     fot: "for",
+    exampl: "example"
   });
   const [text, setText] = useState('');
   const [correction, setCorrection] = useState('');
