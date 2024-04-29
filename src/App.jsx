@@ -46,7 +46,7 @@ export default function App() {
       />
       {
         alert && (
-          <p>Did you mean: {correction}</p>
+          <p>Did you mean: {correction}?</p>
         )
       }
     </div>
